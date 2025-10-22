@@ -1,80 +1,75 @@
-#TÜRKÇE
-# 💬 RAG Chatbot — AKBANK GenAI Bootcamp Projesi
-
+### Chatbot Arayüzü
 ![Chatbot Arayüzü](assets/chatbot2.png)
+### 🇹🇷 RAG Chatbot — AKBANK GenAI Bootcamp Projesi
+Bu proje, Retrieval-Augmented Generation (RAG) yaklaşımını kullanan bir yapay zekâ sohbet botudur.
+Streamlit, LangChain, Pinecone ve Hugging Face teknolojileri ile geliştirilmiştir.
+Chatbot, yüklenen şirket raporlarından (örneğin Tesla, NVIDIA, American Express, Apple) bilgi çekerek bağlama uygun, kısa ve net yanıtlar üretir.
 
-Bu proje, **Retrieval-Augmented Generation (RAG)** yaklaşımını kullanan bir yapay zekâ sohbet botudur.  
-**Streamlit**, **LangChain**, **Pinecone** ve **Hugging Face** teknolojileri ile geliştirilmiştir.  
-Chatbot, yüklenen şirket raporlarından (örneğin Tesla, NVIDIA, American Express, Apple) bilgi çekerek sorulara bağlama uygun, kısa ve net yanıtlar üretir.
+### Genel Bakış
+Chatbot, kullanıcıdan gelen soruyu vektör formatına dönüştürüp Pinecone veritabanındaki benzer bölümleri bulur.
+Ardından bu bölümleri bir LLM (örnek: Mistral-7B-Instruct) ile birleştirerek anlamlı ve bağlama uygun yanıt üretir.
 
----
-
-## 🧠 Genel Bakış
-
-Chatbot, kullanıcıdan gelen soruyu vektör formatına dönüştürüp **Pinecone** veritabanındaki benzer bölümleri bulur.  
-Ardından bu bölümleri bir **LLM** (örnek: *Mistral-7B-Instruct*) ile birleştirerek anlamlı ve bağlama uygun yanıt üretir.
-
----
-
-## 🧩 Kullanılan Teknolojiler
-
-| Bileşen | Açıklama |
-|----------|-----------|
-| **LangChain** | Bilgi getirme (retrieval) ve yanıt üretim zinciri oluşturur |
-| **Pinecone** | Vektör tabanlı veritabanı; embedding sorgularını hızla yürütür |
-| **Hugging Face Hub** | Embedding modeli (BAAI/bge-m3) ve dil modeli (Mistral-7B) |
-| **Streamlit** | Web arayüzü — chatbot etkileşimini sağlar |
-| **Python-dotenv** | `.env` dosyasından gizli anahtarları yükler |
-| **PyPDF / Text Splitters** | PDF belgelerini parçalara böler ve işler |
-
----
-
-## ⚙️ Kurulum ve Çalıştırma
-
-### 1️⃣ Depoyu klonla
-```bash
+### Kurulum ve Çalıştırma
+## 1️⃣ Depoyu Klonla
 git clone https://github.com/Talyaakuvvet/rag-chatbot.git
 cd rag-chatbot
 
-#ENGLISH
-# 💬 RAG Chatbot — AKBANK GenAI Bootcamp Project
+## 2️⃣ Sanal Ortam Oluştur
+python3 -m venv .venv
+source .venv/bin/activate
 
-This project is a **Retrieval-Augmented Generation (RAG)** chatbot built with **Streamlit**, **LangChain**, **Pinecone**, and **Hugging Face**.  
-It can answer questions based on the content of financial and sustainability reports (e.g., Tesla, NVIDIA, American Express, Apple).
+## 3️⃣ Gereksinimleri Yükle
+pip install -r requirements.txt
 
----
+## 4️⃣ Ortam Değişkenlerini Tanımla
+.env dosyası:
+PINECONE_API_KEY=your_pinecone_api_key
+PINECONE_INDEX_NAME=rag-chatbot
+PINECONE_REGION=us-east-1
+HUGGINGFACEHUB_API_TOKEN=hf_your_token
+.streamlit/secrets.toml:
+HUGGINGFACEHUB_API_TOKEN = "hf_your_token"
 
-## 🧠 Overview
+## 5️⃣ Belgeleri İçeri Aktar
+python ingestion.py
 
-The chatbot retrieves the most relevant document chunks from company reports stored in **Pinecone**, then uses a **Hugging Face LLM** (Mistral-7B-Instruct) to generate concise, context-aware answers.
+## 6️⃣ Chatbot’u Başlat
+streamlit run chatbot-rag.py
 
----
+### Chatbot Interface
+![Chatbot Interface](assets/chatbot2.png)
+### 🇬🇧 RAG Chatbot — AKBANK GenAI Bootcamp Project
+This project is a Retrieval-Augmented Generation (RAG) chatbot developed using Streamlit, LangChain, Pinecone, and Hugging Face.
+It answers questions based on company reports such as Tesla, NVIDIA, American Express, and Apple.
 
-## 🧩 Tech Stack
+### Overview
+The chatbot converts user queries into vector embeddings, retrieves similar chunks from Pinecone,
+and generates contextual answers using an LLM like Mistral-7B-Instruct.
 
-| Component | Description |
-|------------|-------------|
-| **LangChain** | Framework for chaining retrieval + generation logic |
-| **Pinecone** | Vector database for storing and querying embeddings |
-| **Hugging Face Hub** | Provides embeddings (BAAI/bge-m3) and LLM (Mistral-7B) |
-| **Streamlit** | Web interface for interactive chatting |
-| **Python-dotenv** | Loads environment variables from `.env` |
-| **PyPDF / Text Splitters** | Extracts and processes document chunks |
-
----
-
-## ⚙️ Setup & Run
-
-### 1. Clone the repository
-```bash
+### Setup & Run
+## 1️⃣ Clone the Repository
 git clone https://github.com/Talyaakuvvet/rag-chatbot.git
 cd rag-chatbot
 
-##📊 Example Questions
-#Try these in your chatbot:
-“What are Tesla’s sustainability goals for 2024?”
-“Summarize NVIDIA’s 2024 financial highlights.”
-“How does Apple report on carbon neutrality?”
-“Which ESG initiatives are mentioned in American Express’s 2024 report?”
+## 2️⃣ Create a Virtual Environment
+python3 -m venv .venv
+source .venv/bin/activate
 
+## 3️⃣ Install Dependencies
+pip install -r requirements.txt
+
+## 4️⃣ Configure Environment Variables
+# .env file:
+PINECONE_API_KEY=your_pinecone_api_key
+PINECONE_INDEX_NAME=rag-chatbot
+PINECONE_REGION=us-east-1
+HUGGINGFACEHUB_API_TOKEN=hf_your_token
+# .streamlit/secrets.toml:
+HUGGINGFACEHUB_API_TOKEN = "hf_your_token"
+
+## 5️⃣ Ingest Your Documents
+python ingestion.py
+
+## 6️⃣ Run the Chatbot
+streamlit run chatbot-rag.py
 
