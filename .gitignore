@@ -22,9 +22,6 @@ __pycache__/
 # Logs
 *.log
 
-# Documents and embeddings
-documents/
-*.pdf
 
 # System
 .DS_Store
